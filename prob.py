@@ -1,32 +1,34 @@
-# 1 to 100 units – Rs. 10/unit
-# 100 to 200 units – Rs. 15/unit
-# 200 to 300 units – Rs. 20/unit
-# above 300 units – Rs. 25/unit
-# units take from the user
-# 570
+def second_highest(lst):
+    '''
+    second_highest iterarte the list and give us the second highest number in the list 
+    '''
+    try:
+        if len(lst) < 2:
+            return "length of list should be more than two"
+        first,second = 0,0
+        for num in lst:
+            if num > first:
+                first,second = num,first
+            elif second < num < first:
+                second = num
+        return second
+    except Exception as e:
+        return f"Error: {e}"
 
-unit=int(input("Enter the units: "))
-bill=0
-
-if (unit<=100):
-    amount=unit*10
+def main (): 
+    '''
+    function having list and calling the second_highest function
+    '''
+    try:
+        my_list = []
+        len=int(input("Enter the length of list: "))
+        for i in range(len):
+            num=int(input("Enter the number: "))
+            my_list.append(num)
+        print(f"List is: {my_list}")
+        print(f"Second highest number in the list is: {second_highest(my_list)}")
+    except Exception as e:
+        return f"Error: {e}"
     
-    bill +=amount
-    
-    
-if(unit>100 and unit<=200):
-    unit=unit-100
-    amount=unit*15
-    bill+=amount+1000
-    
-elif(unit>200 and unit <=300):
-    unit=unit-200
-    amount=unit*20
-    bill+=amount+2500
-    
-else:
-    unit=unit-300
-    amount=unit*25
-    bill +=amount+4500
-print(bill)
-        
+if __name__ =="__main__":
+    main()
