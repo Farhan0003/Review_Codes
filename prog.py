@@ -1,41 +1,34 @@
-def find_target_indices(lst, target):
+def swap_every_two_pairs(arr):
     """
-    Finds all pairs of indices where the sum of elements at those indices equals the target.
+    Swaps every two adjacent pairs in the given list.
 
     Args:
-        lst (list): List of integers.
-        target (int): Target sum.
+        arr (list): List of integers.
 
     Returns:
-        list: A list containing index pairs that sum up to the target.
+        list: A new list with swapped elements.
     """
-    shw = []
-    length = len(lst)
-
-    for i in range(length):
-        for j in range(i + 1, length):
-            if lst[i] + lst[j] == target:
-                shw.extend([i, j])
-
-    return shw
+    for i in range(0, len(arr) - 3, 4):
+        arr[i], arr[i + 1], arr[i + 2], arr[i + 3] = (
+            arr[i + 2], arr[i + 3], arr[i], arr[i + 1]
+        )
+    return arr
 
 
 def main():
     """
-    Main function to take user input and call find_target_indices.
-    Handles input validation and exceptions.
+    Main function to take user input, call swap_every_two_pairs, and handle exceptions.
     """
     try:
-        target = int(input("Enter the target: "))
         length = int(input("Enter the length of the list: "))
 
         if length <= 0:
             print("List length must be a positive integer.")
             return
 
-        lst = [int(input(f"Enter number {i+1}: ")) for i in range(length)]
-        result = find_target_indices(lst, target)
-        print("Indices:", result)
+        arr = [int(input(f"Enter number {i+1}: ")) for i in range(length)]
+        result = swap_every_two_pairs(arr)
+        print("Swapped List:", result)
 
     except ValueError:
         print("Invalid input. Please enter integers only.")
