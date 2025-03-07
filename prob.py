@@ -1,34 +1,28 @@
-def second_highest(lst):
-    '''
-    second_highest iterarte the list and give us the second highest number in the list 
-    '''
-    try:
-        if len(lst) < 2:
-            return "length of list should be more than two"
-        first,second = 0,0
-        for num in lst:
-            if num > first:
-                first,second = num,first
-            elif second < num < first:
-                second = num
-        return second
-    except Exception as e:
-        return f"Error: {e}"
+import pandas as pd
+import re
 
-def main (): 
-    '''
-    function having list and calling the second_highest function
-    '''
-    try:
-        my_list = []
-        len=int(input("Enter the length of list: "))
-        for i in range(len):
-            num=int(input("Enter the number: "))
-            my_list.append(num)
-        print(f"List is: {my_list}")
-        print(f"Second highest number in the list is: {second_highest(my_list)}")
-    except Exception as e:
-        return f"Error: {e}"
-    
-if __name__ =="__main__":
-    main()
+def get_valid_input(prompt,pattern,error_message):
+    while True:
+        user_input=input(prompt)
+        if re.match(pattern, user_input):
+            return user_input
+        else:
+            print(f"Invalid input! {error_message}")
+
+first_name=get_valid_input("Enter the first Name: ", r"^[A-Za-z]{2,}$","Only alphabets, at least two characters.")
+last_name=get_valid_input("Enter the last Name: ", r"^[A-Za-z]{2,}$","Only alphabets, at least two characters.")
+age=get_valid_input("Enter Age: ",r"^\d{1,3}$","Only numbers upto three digits.")
+phone_number=get_valid_input("Enter Phone number: ",r"^\d{10}$","only 10 digits numbers.")
+
+encrypt_number=phone_number[:3] + "XXXXXXX"
+data ={
+    'First Name':[first_name],
+    'Last Name':[last_name],
+    'Age': [int(age)],
+    'Phone Number': [encrypt_number]
+}
+
+label=[1]
+df=pd.DataFrame(data,index=(label))
+
+print(df)
